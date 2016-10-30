@@ -33,7 +33,7 @@ button = new Layer
 
 currentIndex = 1
 
-words = [
+first25 = [
 	'I'
 	'he'
 	'am'
@@ -60,16 +60,16 @@ shuffle = (source) ->
 
 # Create Layers from words array
 
-for i in [1..words.length]
+for i in [1..first25.length]
 	index = i - 1
 
 	i = new TextLayer
-		text: words[index]
+		text: first25[index]
 		color: 'black'
 		fontFamily: 'Comic Sans'
 		fontSize: 72*4
 		autoSize: true
-		name: words[index]
+		name: first25[index]
 		x: Align.center
 		y: Align.center
 	
