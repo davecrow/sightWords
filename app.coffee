@@ -25,13 +25,29 @@ comicSans = new FontFace
 Screen.backgroundColor = 'white'
 
 button = new Layer
-	width: Screen.width, height: Screen.height
-	backgroundColor: ''
+	width: Screen.width, height: Screen.height - 100
+	y: 100
+	backgroundColor: '#'
+
+nextSetButton = new TextLayer
+	x: Align.center, y: 0
+# 	autoSize: true
+	width: Screen.width, height: 100
+	text: 'Next'
+	backgroundColor: '#efefef'
+	color: 'black'
+
+nextSetButton.style =
+	'padding': '10px'
 
 
 # Data
 
-currentIndex = 1
+currentIndex = 0
+currentSetOffset = 0
+currentWord = 0
+wordsPerSet = 5
+currentList = null
 
 first25 = [
 	'I'
@@ -80,16 +96,16 @@ shuffle = (source) ->
 
 # Create Layers from words array
 
-for i in [1..first25.length]
-	index = i - 1
+# shuffle(first25) # Shuffle the order of the words array 
 
+for word, i in first25
 	i = new TextLayer
-		text: first25[index]
+		text: word
 		color: 'black'
 		fontFamily: 'Comic Sans'
 		fontSize: 72*4
 		autoSize: true
-		name: first25[index]
+		name: word
 		x: Align.center
 		y: Align.center
 	
@@ -102,23 +118,42 @@ for layer, i in wordsLayer
 	layer.states =
 		hide: opacity: 0
 		show: opacity: 1
-	
-	wordsLayer[i].stateSwitch 'hide' unless i is 0
-	wordsLayer[0].stateSwitch 'show'
+		
+	wordsLayer[i].stateSwitch 'hide'
 	
 
 # Show cards in random order
 
-button.onTap ->
+nextWord = ->
 	# Hide all layers
 	layer.stateSwitch 'hide' for layer in wordsLayer
 	
+	currentWord = currentSetOffset + currentIndex
+	
 	# Show word matching current index number
-	wordsLayer[currentIndex].stateSwitch 'show'
+	wordsLayer[currentWord].stateSwitch 'show'
+	
 	currentIndex += 1 # Increment the index number
 	
-	if currentIndex is wordsLayer.length # Check if we're at the last word
+	if currentIndex >= wordsPerSet # Check if we're at the last word
 		currentIndex = 0 # Reset the index
-		shuffle(wordsLayer) # Shuffle the order of the words array 
+		currentWord = currentSetOffset + currentIndex
+
+nextSet = ->	
+	currentSetOffset += wordsPerSet
+	
+	if currentSetOffset >= wordsLayer.length
+		currentSetOffset = 0
+		currentIndex = 0
+
+nextWord()
+
+button.onTap ->
+	nextWord()
+		
+nextSetButton.onTap ->
+	nextSet()
+	nextWord()
+	
 
 
