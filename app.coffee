@@ -37,9 +37,10 @@ first25 =
 		['and', 'at', 'the', 'it', 'can']
 		['see', 'me', 'like', 'come', 'here']
 		]
-	wordsList: []
 
-first25.wordsList.push(first25.words[0])
+baseballWords =
+	title: 'Baseball Words'
+
 
 
 # Shuffle Function
@@ -137,6 +138,8 @@ listSelectorContainer.states =
 listSelectorContainer.animationOptions = curve: 'spring'
 listSelectorContainer.stateSwitch 'hide'
 
+# Events
+
 showListSelector = ->
 	whiteScrim.placeBefore(cardContainer)
 	whiteScrim.animate 'show'
@@ -147,8 +150,6 @@ hideListSelector = ->
 	listSelectorContainer.animate 'hide'
 	
 	Utils.delay 0.5, -> whiteScrim.sendToBack()
-
-# Events
 
 chooseListButton.onTap ->
 	showListSelector()
