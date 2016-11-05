@@ -114,26 +114,34 @@ whiteScrim.sendToBack()
 
 # List Selector 	
 
+selectorItemHeight = 50
+selectorItemLayer = []
+
 listSelectorContainer = new Layer
-	width: 250, height: 100
+	width: 250, height: selectorItemHeight * listTitles.length
 	x: Align.center, y: Align.center
 	backgroundColor: 'rgba(107, 172, 194, 0.8)'
 	borderRadius: 4
 
-listSelectorItem = new Layer
-	parent: listSelectorContainer
-	width: listSelectorContainer.width, height: 50
-	backgroundColor: ''
-listSelectorItem.style =
-	'borderBottom': '1px solid white'
-
-listSelectorLabel = new TextLayer
-	parent: listSelectorItem
-	x: Align.center, y: Align.center
-	text: first25.title
-	autoSize: true
-	textAlign: 'center'
-	color: 'black'
+for title, i in listTitles
+	listSelectorItem = new Layer
+		parent: listSelectorContainer
+		width: listSelectorContainer.width, height: selectorItemHeight
+		y: selectorItemHeight * i
+		backgroundColor: ''
+		name: 'listSelectorItem' + i
+	listSelectorItem.style =
+		'borderBottom': '1px solid white'
+	
+	selectorItemLayer.push 'listSelectorItem'
+	
+	listSelectorLabel = new TextLayer
+		parent: listSelectorItem
+		x: Align.center, y: Align.center
+		text: listTitles[i]
+		autoSize: true
+		textAlign: 'center'
+		color: 'black'
 
 # States
 
