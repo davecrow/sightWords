@@ -59,6 +59,10 @@ chooseListButton = new TextLayer
 
 nextSetButton.style =
 	'padding': '10px'
+cardContainer = new Layer
+	width: Screen.width, height: Screen.height - 200
+	y: 100
+	backgroundColor: ''
 
 
 # Data
@@ -111,6 +115,7 @@ createWordLayers = ->
 			name: word
 			x: Align.center
 			y: Align.center
+			parent: cardContainer
 		
 		wordsLayer.push(i)
 	
