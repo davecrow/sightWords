@@ -44,10 +44,10 @@ button = new Layer
 	backgroundColor: '#'
 
 nextSetButton = new TextLayer
-	x: Align.center, y: 0
+	x: Align.center, maxY: Screen.height
 # 	autoSize: true
 	width: Screen.width, height: 100
-	text: 'Next'
+	text: 'Next Set'
 	backgroundColor: '#efefef'
 	color: 'black'
 
