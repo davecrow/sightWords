@@ -64,8 +64,21 @@ cardContainer = new Layer
 	y: 100
 	backgroundColor: ''
 
+whiteScrim = new Layer
+	width: Screen.width, height: Screen.height
+	backgroundColor: "white"
+	opacity: 0.95
+	ignoreEvents: true
+whiteScrim.bringToFront()
 
-# Data
+whiteScrim.states =
+	hide: opacity: 0
+	show: opacity: 0.95
+whiteScrim.animationOptions =
+	time: 0.3
+	curve: 'linear'
+whiteScrim.stateSwitch 'hide'
+whiteScrim.sendToBack()
 
 currentSetIndex = 0
 currentWordIndex = 0
@@ -87,10 +100,55 @@ first25 =
 first25.wordsList.push(first25.words[0])
 
 
+# List Selector 	
 
+listSelectorContainer = new Layer
+	width: 250, height: 100
+	x: Align.center, y: Align.center
+	backgroundColor: 'rgba(107, 172, 194, 0.8)'
+	borderRadius: 4
 
-# print first25.words[0]
+listSelectorItem = new Layer
+	parent: listSelectorContainer
+	width: listSelectorContainer.width, height: 50
+	backgroundColor: ''
+listSelectorItem.style =
+	'borderBottom': '1px solid white'
 
+listSelectorLabel = new TextLayer
+	parent: listSelectorItem
+	x: Align.center, y: Align.center
+	text: first25.title
+	autoSize: true
+	textAlign: 'center'
+	color: 'black'
+
+# States
+
+listSelectorContainer.states =
+	hide: maxY: 0
+	show: y: listSelectorContainer.y
+listSelectorContainer.animationOptions = curve: 'spring'
+listSelectorContainer.stateSwitch 'hide'
+
+showListSelector = ->
+	whiteScrim.placeBefore(cardContainer)
+	whiteScrim.animate 'show'
+	listSelectorContainer.animate 'show'
+
+hideListSelector = ->
+	whiteScrim.animate 'hide'
+	listSelectorContainer.animate 'hide'
+	
+	Utils.delay 0.5, -> whiteScrim.sendToBack()
+
+# Events
+
+chooseListButton.onTap ->
+	showListSelector()
+
+whiteScrim.onTap ->
+	hideListSelector()
 
 
 # Create Layers from words array
