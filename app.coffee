@@ -20,6 +20,28 @@ comicSans = new FontFace
 　file: "Comic Sans MS.ttf"
 
 
+# Data
+
+currentSetIndex = 0
+currentWordIndex = 0
+currentWord = 0
+wordsPerSet = 5
+currentList = null
+
+first25 = 
+	title: 'The First 25'
+	words: [
+		['I', 'he', 'am', 'a', 'go']
+		['no', 'my', 'on', 'look', 'in']
+		['to', 'we', 'said', 'do', 'is']
+		['and', 'at', 'the', 'it', 'can']
+		['see', 'me', 'like', 'come', 'here']
+		]
+	wordsList: []
+
+first25.wordsList.push(first25.words[0])
+
+
 # Shuffle Function
 
 shuffle = (source) ->
@@ -49,6 +71,8 @@ nextSetButton = new TextLayer
 	text: 'Next Set'
 	backgroundColor: '#efefef'
 	color: 'black'
+nextSetButton.style =
+	'padding': '10px'
 
 chooseListButton = new TextLayer
 	x: Align.center, y: 0
@@ -57,8 +81,6 @@ chooseListButton = new TextLayer
 	backgroundColor: '#efefef'
 	color: 'black'
 
-nextSetButton.style =
-	'padding': '10px'
 cardContainer = new Layer
 	width: Screen.width, height: Screen.height - 200
 	y: 100
@@ -80,24 +102,8 @@ whiteScrim.animationOptions =
 whiteScrim.stateSwitch 'hide'
 whiteScrim.sendToBack()
 
-currentSetIndex = 0
-currentWordIndex = 0
-currentWord = 0
-wordsPerSet = 5
-currentList = null
 
-first25 = 
-	title: 'The First 25'
-	words: [
-		['I', 'he', 'am', 'a', 'go']
-		['no', 'my', 'on', 'look', 'in']
-		['to', 'we', 'said', 'do', 'is']
-		['and', 'at', 'the', 'it', 'can']
-		['see', 'me', 'like', 'come', 'here']
-		]
-	wordsList: []
 
-first25.wordsList.push(first25.words[0])
 
 
 # List Selector 	
