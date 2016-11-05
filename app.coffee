@@ -100,7 +100,7 @@ createWordLayers = ->
 			text: word
 			color: 'black'
 			fontFamily: 'Comic Sans'
-			fontSize: 72*4
+			fontSize: Screen.width / 3
 			autoSize: true
 			name: word
 			x: Align.center
