@@ -84,8 +84,6 @@ first25.wordsList.push(first25.words[0])
 
 # Create Layers from words array
 
-# shuffle(first25) # Shuffle the order of the words array 
-
 wordsLayer = []
 
 for word, i in first25.words[0]
@@ -106,6 +104,8 @@ for layer, i in wordsLayer
 	layer.states =
 		hide: opacity: 0
 		show: opacity: 1
+
+shuffle(wordsLayer) # Shuffle the order of the words array 
 	
 
 # Show cards in random order
