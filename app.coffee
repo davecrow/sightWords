@@ -20,6 +20,20 @@ comicSans = new FontFace
 　file: "Comic Sans MS.ttf"
 
 
+# Shuffle Function
+
+shuffle = (source) ->
+  # Arrays with < 2 elements do not shuffle well. Instead make it a noop.
+  return source unless source.length >= 2
+  # From the end of the list to the beginning, pick element `index`.
+  for index in [source.length-1..1]
+    # Choose random element `randomIndex` to the front of `index` to swap with.
+    randomIndex = Math.floor Math.random() * (index + 1)
+    # Swap `randomIndex` with `index`, using destructured assignment
+    [source[index], source[randomIndex]] = [source[randomIndex], source[index]]
+  source
+
+
 # Layers
 
 Screen.backgroundColor = 'white'
@@ -49,56 +63,32 @@ currentWord = 0
 wordsPerSet = 5
 currentList = null
 
-first25 = [
-	'I'
-	'he'
-	'am'
-	'a'
-	'go'
-	'no'
-	'my'
-	'on'
-	'look'
-	'in'
-	'to'
-	'we'
-	'said'
-	'do'
-	'is'
-	'and'
-	'at'
-	'the'
-	'it'
-	'can'
-	'see'
-	'me'
-	'like'
-	'come'
-	'here'
-]
-
-wordsLayer = []
+first25 = 
+	title: 'The First 25'
+	words: [
+		['I', 'he', 'am', 'a', 'go']
+		['no', 'my', 'on', 'look', 'in']
+		['to', 'we', 'said', 'do', 'is']
+		['and', 'at', 'the', 'it', 'can']
+		['see', 'me', 'like', 'come', 'here']
+		]
+	wordsList: []
+first25.wordsList.push(first25.words[0])
 
 
-# Shuffle Function
 
-shuffle = (source) ->
-  # Arrays with < 2 elements do not shuffle well. Instead make it a noop.
-  return source unless source.length >= 2
-  # From the end of the list to the beginning, pick element `index`.
-  for index in [source.length-1..1]
-    # Choose random element `randomIndex` to the front of `index` to swap with.
-    randomIndex = Math.floor Math.random() * (index + 1)
-    # Swap `randomIndex` with `index`, using destructured assignment
-    [source[index], source[randomIndex]] = [source[randomIndex], source[index]]
-  source
+
+# print first25.words[0]
+
 
 
 # Create Layers from words array
 
 # shuffle(first25) # Shuffle the order of the words array 
 
-for word, i in first25
+wordsLayer = []
+
+for word, i in first25.words[0]
 	i = new TextLayer
 		text: word
 		color: 'black'
@@ -111,15 +101,11 @@ for word, i in first25
 	
 	wordsLayer.push(i)
 
-
-# Setup for word layers
-	
+# Create states
 for layer, i in wordsLayer
 	layer.states =
 		hide: opacity: 0
 		show: opacity: 1
-		
-	wordsLayer[i].stateSwitch 'hide'
 	
 
 # Show cards in random order
@@ -137,7 +123,8 @@ nextWord = ->
 	
 	if currentIndex >= wordsPerSet # Check if we're at the last word
 		currentIndex = 0 # Reset the index
-		currentWord = currentSetOffset + currentIndex
+		currentWord = currentSetOffset + currentIndex # Reset the word
+		shuffle(wordsLayer)
 
 nextSet = ->	
 	currentSetOffset += wordsPerSet
