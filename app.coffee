@@ -41,6 +41,11 @@ first25 =
 baseballWords =
 	title: 'Baseball Words'
 
+listTitles = [
+	first25.title
+	baseballWords.title
+	]
+
 
 
 # Shuffle Function
