@@ -135,19 +135,13 @@ nextWord = ->
 		shuffle(wordsLayer)
 
 nextSet = ->
-	# Destroy current word layers
-	layer.destroy() for layer in wordsLayer
+	layer.destroy() for layer in wordsLayer # Destroy current word layers
+	wordsLayer = [] # Clear the words layer array
 	
+	currentWordIndex = 0 # Reset the word index
 	currentSetIndex += 1 # Increment the index number
-	print currentSetIndex
 	
-	createWordLayers()
-		
-# 	currentSetOffset += wordsPerSet
-# 	
-# 	if currentSetOffset >= wordsLayer.length # Check if we're at the end of the set
-# 		currentSetOffset = 0 # Reset offset
-# 		currentIndex = 0 # Reset Index
+	createWordLayers() # Create layers for new words
 
 nextWord()
 
