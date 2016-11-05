@@ -45,9 +45,15 @@ button = new Layer
 
 nextSetButton = new TextLayer
 	x: Align.center, maxY: Screen.height
-# 	autoSize: true
 	width: Screen.width, height: 100
 	text: 'Next Set'
+	backgroundColor: '#efefef'
+	color: 'black'
+
+chooseListButton = new TextLayer
+	x: Align.center, y: 0
+	width: Screen.width, height: 100
+	text: 'Choose Word List'
 	backgroundColor: '#efefef'
 	color: 'black'
 
