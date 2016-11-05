@@ -57,8 +57,8 @@ nextSetButton.style =
 
 # Data
 
-currentIndex = 0
-currentSetOffset = 0
+currentSetIndex = 0
+currentWordIndex = 0
 currentWord = 0
 wordsPerSet = 5
 currentList = null
@@ -73,6 +73,7 @@ first25 =
 		['see', 'me', 'like', 'come', 'here']
 		]
 	wordsList: []
+
 first25.wordsList.push(first25.words[0])
 
 
@@ -84,28 +85,38 @@ first25.wordsList.push(first25.words[0])
 
 # Create Layers from words array
 
+currentSet = null
 wordsLayer = []
 
-for word, i in first25.words[0]
-	i = new TextLayer
-		text: word
-		color: 'black'
-		fontFamily: 'Comic Sans'
-		fontSize: 72*4
-		autoSize: true
-		name: word
-		x: Align.center
-		y: Align.center
+createWordLayers = ->
+	if currentSetIndex >= first25.words.length # Check if we're at the last set
+		currentSetIndex = 0 # Reset the index
 	
-	wordsLayer.push(i)
+	currentSet = first25.words[currentSetIndex]
+	
+	# Create word layers
+	for word, i in currentSet
+		i = new TextLayer
+			text: word
+			color: 'black'
+			fontFamily: 'Comic Sans'
+			fontSize: Screen.width / 3
+			autoSize: true
+			name: word
+			x: Align.center
+			y: Align.center
+		
+		wordsLayer.push(i)
+	
+	# Create states
+	for layer, i in wordsLayer
+		layer.states =
+			hide: opacity: 0
+			show: opacity: 1
+	
+	shuffle(wordsLayer) # Shuffle the order of the words array 
 
-# Create states
-for layer, i in wordsLayer
-	layer.states =
-		hide: opacity: 0
-		show: opacity: 1
-
-shuffle(wordsLayer) # Shuffle the order of the words array 
+createWordLayers()
 	
 
 # Show cards in random order
@@ -114,24 +125,23 @@ nextWord = ->
 	# Hide all layers
 	layer.stateSwitch 'hide' for layer in wordsLayer
 	
-	currentWord = currentSetOffset + currentIndex
-	
 	# Show word matching current index number
-	wordsLayer[currentWord].stateSwitch 'show'
+	wordsLayer[currentWordIndex].stateSwitch 'show'
 	
-	currentIndex += 1 # Increment the index number
+	currentWordIndex += 1 # Increment the index number
 	
-	if currentIndex >= wordsPerSet # Check if we're at the last word
-		currentIndex = 0 # Reset the index
-		currentWord = currentSetOffset + currentIndex # Reset the word
+	if currentWordIndex >= wordsLayer.length # Check if we're at the last word
+		currentWordIndex = 0 # Reset the word index
 		shuffle(wordsLayer)
 
-nextSet = ->	
-	currentSetOffset += wordsPerSet
+nextSet = ->
+	layer.destroy() for layer in wordsLayer # Destroy current word layers
+	wordsLayer = [] # Clear the words layer array
 	
-	if currentSetOffset >= wordsLayer.length
-		currentSetOffset = 0
-		currentIndex = 0
+	currentWordIndex = 0 # Reset the word index
+	currentSetIndex += 1 # Increment the index number
+	
+	createWordLayers() # Create layers for new words
 
 nextWord()
 
