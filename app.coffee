@@ -26,7 +26,6 @@ currentSetIndex = 0
 currentWordIndex = 0
 currentWord = 0
 wordsPerSet = 5
-currentList = null
 
 first25 = 
 	title: 'The First 25'
@@ -52,6 +51,12 @@ listTitles = [
 	baseballWords.title
 	]
 
+list = [
+	first25.words
+	baseballWords.words
+	]
+
+currentList = list[currentSetIndex]
 
 
 # Shuffle Function
@@ -118,6 +123,82 @@ whiteScrim.sendToBack()
 
 
 
+# Create Layers from words array
+
+currentSet = null
+wordsLayer = []
+
+createWordLayers = (list) ->
+	currentSet = list[currentSetIndex]
+	
+	if currentSetIndex >= currentSet.length # Check if we're at the last set
+		currentSetIndex = 0 # Reset the index
+	
+	# Create word layers
+	for word, i in currentSet
+		i = new TextLayer
+			text: word
+			color: 'black'
+			fontFamily: 'Comic Sans'
+			fontSize: Screen.width / 3
+			autoSize: true
+			name: word
+			x: Align.center
+			y: Align.center
+			parent: cardContainer
+		
+		wordsLayer.push(i)
+	
+	# Create states
+	for layer, i in wordsLayer
+		layer.states =
+			hide: opacity: 0
+			show: opacity: 1
+	
+	shuffle(wordsLayer) # Shuffle the order of the words array 
+
+createWordLayers(currentList)
+
+	
+
+# Show cards in random order
+
+nextWord = ->
+	# Hide all layers
+	layer.stateSwitch 'hide' for layer in wordsLayer
+	
+	# Show word matching current index number
+	wordsLayer[currentWordIndex].stateSwitch 'show'
+	
+	currentWordIndex += 1 # Increment the index number
+	
+	if currentWordIndex >= wordsLayer.length # Check if we're at the last word
+		currentWordIndex = 0 # Reset the word index
+		shuffle(wordsLayer)
+
+nextSet = ->
+	layer.destroy() for layer in wordsLayer # Destroy current word layers
+	wordsLayer = [] # Clear the words layer array
+	
+	currentWordIndex = 0 # Reset the word index
+	currentSetIndex += 1 # Increment the index number
+	
+	if currentSetIndex >= currentSet.length # Check if we're at the last set
+		currentSetIndex = 0 # Reset the index
+	
+	createWordLayers(currentList) # Create layers for new words
+
+nextWord()
+
+button.onTap ->
+	nextWord()
+		
+nextSetButton.onTap ->
+	nextSet()
+	nextWord()
+	
+
+
 # List Selector 	
 
 selectorItemHeight = 50
@@ -130,21 +211,24 @@ listSelectorContainer = new Layer
 	borderRadius: 4
 
 for title, i in listTitles
-	listSelectorItem = new Layer
+	index = i
+	
+	i = new Layer
 		parent: listSelectorContainer
 		width: listSelectorContainer.width, height: selectorItemHeight
 		y: selectorItemHeight * i
 		backgroundColor: ''
 		name: 'listSelectorItem' + i
-	listSelectorItem.style =
+	i.style =
 		'borderBottom': '1px solid white'
 	
-	selectorItemLayer.push 'listSelectorItem'
-	
+	selectorItemLayer.push(i)
+
 	listSelectorLabel = new TextLayer
-		parent: listSelectorItem
+		parent: i
 		x: Align.center, y: Align.center
-		text: listTitles[i]
+		text: listTitles[index]
+		name: listTitles[index]
 		autoSize: true
 		textAlign: 'center'
 		color: 'black'
@@ -176,76 +260,26 @@ chooseListButton.onTap ->
 whiteScrim.onTap ->
 	hideListSelector()
 
+for layer, i in selectorItemLayer
+	layer.selectorIndex = i
 
-# Create Layers from words array
-
-currentSet = null
-wordsLayer = []
-
-createWordLayers = ->
-	if currentSetIndex >= first25.words.length # Check if we're at the last set
-		currentSetIndex = 0 # Reset the index
+	layer.onTap ->
+		layer.destroy() for layer in wordsLayer # Destroy current word layers
 	
-	currentSet = first25.words[currentSetIndex]
-	
-	# Create word layers
-	for word, i in currentSet
-		i = new TextLayer
-			text: word
-			color: 'black'
-			fontFamily: 'Comic Sans'
-			fontSize: Screen.width / 3
-			autoSize: true
-			name: word
-			x: Align.center
-			y: Align.center
-			parent: cardContainer
+		currentList = list[@.selectorIndex] # Choose the new list
+		currentSetIndex = 0 # Go to the first set in the list
+		wordsLayer = [] # Clear the aray
+			
+		createWordLayers(currentList) # Create layers from the new list
+		nextWord() # Go to the first word in the set
 		
-		wordsLayer.push(i)
-	
-	# Create states
-	for layer, i in wordsLayer
-		layer.states =
-			hide: opacity: 0
-			show: opacity: 1
-	
-	shuffle(wordsLayer) # Shuffle the order of the words array 
-
-createWordLayers()
-	
-
-# Show cards in random order
-
-nextWord = ->
-	# Hide all layers
-	layer.stateSwitch 'hide' for layer in wordsLayer
-	
-	# Show word matching current index number
-	wordsLayer[currentWordIndex].stateSwitch 'show'
-	
-	currentWordIndex += 1 # Increment the index number
-	
-	if currentWordIndex >= wordsLayer.length # Check if we're at the last word
-		currentWordIndex = 0 # Reset the word index
-		shuffle(wordsLayer)
-
-nextSet = ->
-	layer.destroy() for layer in wordsLayer # Destroy current word layers
-	wordsLayer = [] # Clear the words layer array
-	
-	currentWordIndex = 0 # Reset the word index
-	currentSetIndex += 1 # Increment the index number
-	
-	createWordLayers() # Create layers for new words
-
-nextWord()
-
-button.onTap ->
-	nextWord()
+		hideListSelector()
 		
-nextSetButton.onTap ->
-	nextSet()
-	nextWord()
 	
+	
+		
 
 
+
+
+		
