@@ -40,6 +40,12 @@ first25 =
 
 baseballWords =
 	title: 'Baseball Words'
+	words: [
+		['the', 'was', 'to', 'said', 'and']
+		['his', 'he', 'that', 'a', 'she']
+		['I', 'for', 'you', 'on', 'it']
+		['they', 'of', 'but', 'in', 'had']
+		]
 
 listTitles = [
 	first25.title
