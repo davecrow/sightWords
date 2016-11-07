@@ -190,28 +190,28 @@ shuffle = (source) ->
 Screen.backgroundColor = 'white'
 
 button = new Layer
-	width: Screen.width, height: Screen.height - 100
-	y: 100
-	backgroundColor: '#'
+	width: Screen.width, height: Screen.height - dpr 100
+	y: dpr 100
+	backgroundColor: ''
 
 nextSetButton = new Layer
-	x: Align.center, maxY: Screen.height - 50
-	width: 250, height: 50
-	borderRadius: 25
+	x: Align.center, maxY: Screen.height - dpr 50
+	width: dpr 250, height: dpr 50
+	borderRadius: dpr 25
 	backgroundColor: '#6BACC2'
 
 nextSetLabel = new TextLayer
 	x: Align.center, y: Align.center
 	autoSize: true
-	fontSize: 16
+	fontSize: dpr 16
 	parent: nextSetButton
 	text: 'Next Set of 5'
 	color: 'white'
 
 chooseListButton = new Layer
-	x: Align.center, y: 50
+	x: Align.center, y: dpr 50
 	width: 250, height: 50
-	borderRadius: 25
+	borderRadius: dpr 25
 	backgroundColor: '#6BACC2'
 
 chooseListLabel = new TextLayer
@@ -225,7 +225,7 @@ chooseListLabel = new TextLayer
 currentListLabel = new TextLayer
 	x: Align.center, y: chooseListButton.maxY + 20
 	autoSize: true
-	fontSize: 16
+	fontSize: dpr 16
 	text: 'Current List: The First 25'
 	color: '#6BACC2'
 
