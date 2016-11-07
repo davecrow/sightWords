@@ -46,7 +46,6 @@ baseballWords =
 		['they', 'of', 'but', 'in', 'had']
 		]
 
-<<<<<<< HEAD
 soccerWords =
 	title: 'Soccer Words'
 	words: [
