@@ -20,6 +20,156 @@ comicSans = new FontFace
 　file: "Comic Sans MS.ttf"
 
 
+# Data
+
+currentSetIndex = 0
+currentWordIndex = 0
+currentWord = 0
+wordsPerSet = 5
+
+first25 = 
+	title: 'The First 25'
+	words: [
+		['I', 'he', 'am', 'a', 'go']
+		['no', 'my', 'on', 'look', 'in']
+		['to', 'we', 'said', 'do', 'is']
+		['and', 'at', 'the', 'it', 'can']
+		['see', 'me', 'like', 'come', 'here']
+		]
+
+baseballWords =
+	title: 'Baseball Words'
+	words: [
+		['the', 'was', 'to', 'said', 'and']
+		['his', 'he', 'that', 'a', 'she']
+		['I', 'for', 'you', 'on', 'it']
+		['they', 'of', 'but', 'in', 'had']
+		]
+
+soccerWords = 
+	title: 'Soccer Words'
+	words: [
+		['at', 'out', 'is', 'am', 'her']
+		['then', 'have', 'up', 'some', 'go']
+		['look', 'we', 'as', 'with', 'be']
+		['little', 'there', 'all', 'down', 'him']
+		]
+
+basketballWords =
+	title: 'Basketball Words'
+	words: [
+		['do', 'get', 'can', 'them', 'would']
+		['like', 'did', 'this', 'when', 'one']
+		['what', 'my', 'so', 'could', 'see']
+		['me', 'were', 'yes', 'not', 'will']
+		]
+
+footballWords = 
+	title: 'Football Words'
+	words: [
+		['big', 'very', 'went', 'an', 'are']
+		['over', 'come', 'your', 'if', 'its']
+		['now', 'ride', 'long', 'into', 'no']
+		['just', 'came', 'blue', 'ask', 'red']
+		]
+
+volleyballWords =
+	title: 'Volleyball Words'
+	words: [
+		['from', 'put', 'good', 'too', 'any']
+		['got', 'about', 'take', 'around', 'four']
+		['want', 'every', '''don't''', 'pretty', 'how']
+		['jump', 'know', 'green', 'right', 'where']
+		]
+
+golfWords = 
+	title: 'Golf Words'
+	words: [
+		['away', 'ran', 'old', 'let', 'by']
+		['help', 'their', 'make', 'here', 'going']
+		['saw', 'sleep', 'call', 'brown', 'after']
+		['yellow', 'well', 'five', 'think', 'six']
+		]
+
+tennisWords = 
+	title: 'Tennis Words'
+	words: [
+		['walk', 'stop', 'two', 'off', 'round']
+		['before', 'who', 'never', 'fly', 'been']
+		['again', 'cold', 'play', 'today', 'myself']
+		['eight', 'or', 'may', 'eat', 'seven']
+		]
+
+bowlingWords = 
+	title: 'Bowling Words'
+	words: [
+		['tell', 'black', 'much', 'white', 'keep']
+		['ten', 'give', 'does', 'work', 'bring']
+		['first', 'goes', 'try', 'write', 'new']
+		['always', 'must', 'drink', 'start', 'once']
+		]
+
+pingPongWords = 
+	title: 'Ping Pong Words'
+	words: [
+		['soon', 'our', 'made', 'better', 'run']
+		['hold', 'gave', 'buy', 'open', 'funny']
+		['has', 'warm', 'find', 'ate', 'only']
+		['full', 'us', 'those', 'three', 'done']
+		]
+
+hockeyWords =
+	title: 'Hockey Words'
+	words: [
+		['use', 'sit', 'fast', 'which', 'say']
+		['fall', 'light', 'caryy', 'pick', 'small']
+		['hurt', 'under', 'pull', 'read', 'cut']
+		['why', 'kind', 'own', 'both', 'found']
+		]
+
+beachBallWords =
+	title: 'Beach Ball Words'
+	words: [
+		['wash', 'upon', 'show', 'these', 'hot']
+		['sing', 'because', 'together', 'best', 'please']
+		['live', 'thank', 'draw', 'wish', 'clean']
+		['many', 'grow', 'far', 'shall', 'laugh']
+		]
+
+listTitles = [
+	first25.title
+	baseballWords.title
+	soccerWords.title
+	basketballWords.title
+	footballWords.title
+	volleyballWords.title
+	golfWords.title
+	tennisWords.title
+	bowlingWords.title
+	pingPongWords.title
+	hockeyWords.title
+	beachBallWords.title
+	]
+
+list = [
+	first25.words
+	baseballWords.words
+	soccerWords.words
+	basketballWords.words
+	footballWords.words
+	volleyballWords.words
+	golfWords.words
+	tennisWords.words
+	bowlingWords.words
+	pingPongWords.words
+	hockeyWords.words
+	beachBallWords.words
+	]
+
+currentList = list[currentSetIndex]
+
+
+
 # Shuffle Function
 
 shuffle = (source) ->
@@ -44,55 +194,57 @@ button = new Layer
 	backgroundColor: '#'
 
 nextSetButton = new TextLayer
-	x: Align.center, y: 0
-# 	autoSize: true
+	x: Align.center, maxY: Screen.height
 	width: Screen.width, height: 100
-	text: 'Next'
+	text: 'Next Set'
 	backgroundColor: '#efefef'
 	color: 'black'
-
 nextSetButton.style =
 	'padding': '10px'
 
+chooseListButton = new TextLayer
+	x: Align.center, y: 0
+	width: Screen.width, height: 100
+	text: 'Choose Word List'
+	backgroundColor: '#efefef'
+	color: 'black'
 
-# Data
+cardContainer = new Layer
+	width: Screen.width, height: Screen.height - 200
+	y: 100
+	backgroundColor: ''
 
-currentSetIndex = 0
-currentWordIndex = 0
-currentWord = 0
-wordsPerSet = 5
-currentList = null
+whiteScrim = new Layer
+	width: Screen.width, height: Screen.height
+	backgroundColor: "white"
+	opacity: 0.95
+	ignoreEvents: true
+whiteScrim.bringToFront()
 
-first25 = 
-	title: 'The First 25'
-	words: [
-		['I', 'he', 'am', 'a', 'go']
-		['no', 'my', 'on', 'look', 'in']
-		['to', 'we', 'said', 'do', 'is']
-		['and', 'at', 'the', 'it', 'can']
-		['see', 'me', 'like', 'come', 'here']
-		]
-	wordsList: []
-
-first25.wordsList.push(first25.words[0])
-
-
+whiteScrim.states =
+	hide: opacity: 0
+	show: opacity: 0.95
+whiteScrim.animationOptions =
+	time: 0.3
+	curve: 'linear'
+whiteScrim.stateSwitch 'hide'
+whiteScrim.sendToBack()
 
 
-# print first25.words[0]
 
 
 
 # Create Layers from words array
 
-currentSet = null
+currentSet = list[0]
 wordsLayer = []
 
-createWordLayers = ->
-	if currentSetIndex >= first25.words.length # Check if we're at the last set
+createWordLayers = (list) ->
+
+	if currentSetIndex >= currentList.length # Check if we're at the last set
 		currentSetIndex = 0 # Reset the index
 	
-	currentSet = first25.words[currentSetIndex]
+	currentSet = list[currentSetIndex]
 	
 	# Create word layers
 	for word, i in currentSet
@@ -100,12 +252,25 @@ createWordLayers = ->
 			text: word
 			color: 'black'
 			fontFamily: 'Comic Sans'
-			fontSize: Screen.width / 3
+			fontSize: Screen.width / 4
 			autoSize: true
 			name: word
 			x: Align.center
 			y: Align.center
+			parent: cardContainer
 		
+		if i.width >= Screen.width / 1.8 # Reduce font size for long words
+			i.fontSize = Screen.width / 5
+			i.autoSize = true
+			i.x = Align.center
+			i.y = Align.center
+		
+		if i.fontSize >= 100 # Set max fontSize
+			i.fontSize = 100
+			i.autoSize = true
+			i.x = Align.center
+			i.y = Align.center
+
 		wordsLayer.push(i)
 	
 	# Create states
@@ -116,7 +281,8 @@ createWordLayers = ->
 	
 	shuffle(wordsLayer) # Shuffle the order of the words array 
 
-createWordLayers()
+createWordLayers(currentList)
+
 	
 
 # Show cards in random order
@@ -140,8 +306,8 @@ nextSet = ->
 	
 	currentWordIndex = 0 # Reset the word index
 	currentSetIndex += 1 # Increment the index number
-	
-	createWordLayers() # Create layers for new words
+
+	createWordLayers(currentList) # Create layers for new words
 
 nextWord()
 
@@ -151,6 +317,92 @@ button.onTap ->
 nextSetButton.onTap ->
 	nextSet()
 	nextWord()
+# 	print currentSetIndex
+
+
+
+# List Selector 	
+
+selectorItemHeight = 50
+selectorItemLayer = []
+
+listSelectorContainer = new Layer
+	width: 250, height: selectorItemHeight * listTitles.length
+	x: Align.center, y: Align.center
+	backgroundColor: 'rgba(107, 172, 194, 0.8)'
+	borderRadius: 4
+
+for title, i in listTitles
+	index = i
 	
+	i = new Layer
+		parent: listSelectorContainer
+		width: listSelectorContainer.width, height: selectorItemHeight
+		y: selectorItemHeight * i
+		backgroundColor: ''
+		name: 'listSelectorItem' + i
+	i.style =
+		'borderBottom': '1px solid white'
+	
+	selectorItemLayer.push(i)
+
+	listSelectorLabel = new TextLayer
+		parent: i
+		x: Align.center, y: Align.center
+		text: listTitles[index]
+		name: listTitles[index]
+		autoSize: true
+		textAlign: 'center'
+		color: 'black'
+
+# States
+
+listSelectorContainer.states =
+	hide: maxY: 0
+	show: y: listSelectorContainer.y
+listSelectorContainer.animationOptions = curve: 'spring'
+listSelectorContainer.stateSwitch 'hide'
+
+# Events
+
+showListSelector = ->
+	whiteScrim.placeBefore(cardContainer)
+	whiteScrim.animate 'show'
+	listSelectorContainer.animate 'show'
+
+hideListSelector = ->
+	whiteScrim.animate 'hide'
+	listSelectorContainer.animate 'hide'
+	
+	Utils.delay 0.5, -> whiteScrim.sendToBack()
+
+chooseListButton.onTap ->
+	showListSelector()
+
+whiteScrim.onTap ->
+	hideListSelector()
+
+for layer, i in selectorItemLayer
+	layer.selectorIndex = i
+
+	layer.onTap ->
+		layer.destroy() for layer in wordsLayer # Destroy current word layers
+		wordsLayer = [] # Clear the aray
+		
+		currentList = list[@.selectorIndex] # Choose the new list
+		currentSetIndex = 0 # Go to the first set in the list
+		currentSet = null
+		currentSet = currentList[currentSetIndex]
+		
+		createWordLayers(currentList) # Create layers from the new list
+		nextWord() # Go to the first word in the set
+		
+		hideListSelector()
+	
+	
+		
 
 
+
+
+		
