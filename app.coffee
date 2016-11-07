@@ -14,6 +14,7 @@ Framer.Info =
 
 {FontFace} = require 'FontFace'
 {TextLayer} = require 'TextLayer'
+{dpr} = require 'DevicePixelRatio'
 
 comicSans = new FontFace
 　name: "Comic Sans"
