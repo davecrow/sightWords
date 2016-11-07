@@ -217,9 +217,16 @@ chooseListLabel = new TextLayer
 	x: Align.center, y: Align.center
 	autoSize: true
 	fontSize: 16
-	text: 'Choose Word List'
+	text: 'Change Word List'
 	color: 'white'
 	parent: chooseListButton
+
+currentListLabel = new TextLayer
+	x: Align.center, y: chooseListButton.maxY + 20
+	autoSize: true
+	fontSize: 16
+	text: 'Current List: The First 25'
+	color: '#6BACC2'
 
 cardContainer = new Layer
 	width: Screen.width, height: Screen.height - 200
@@ -406,6 +413,9 @@ for layer, i in selectorItemLayer
 		currentSetIndex = 0 # Go to the first set in the list
 		currentSet = null
 		currentSet = currentList[currentSetIndex]
+		
+		currentListLabel.text = 'Current List: ' + listTitles[@.selectorIndex]
+		currentListLabel.x = Align.center
 		
 		createWordLayers(currentList) # Create layers from the new list
 		nextWord() # Go to the first word in the set
