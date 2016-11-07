@@ -44,55 +44,57 @@ button = new Layer
 	backgroundColor: '#'
 
 nextSetButton = new TextLayer
-	x: Align.center, y: 0
-# 	autoSize: true
+	x: Align.center, maxY: Screen.height
 	width: Screen.width, height: 100
-	text: 'Next'
+	text: 'Next Set'
 	backgroundColor: '#efefef'
 	color: 'black'
-
 nextSetButton.style =
 	'padding': '10px'
 
+chooseListButton = new TextLayer
+	x: Align.center, y: 0
+	width: Screen.width, height: 100
+	text: 'Choose Word List'
+	backgroundColor: '#efefef'
+	color: 'black'
 
-# Data
+cardContainer = new Layer
+	width: Screen.width, height: Screen.height - 200
+	y: 100
+	backgroundColor: ''
 
-currentSetIndex = 0
-currentWordIndex = 0
-currentWord = 0
-wordsPerSet = 5
-currentList = null
+whiteScrim = new Layer
+	width: Screen.width, height: Screen.height
+	backgroundColor: "white"
+	opacity: 0.95
+	ignoreEvents: true
+whiteScrim.bringToFront()
 
-first25 = 
-	title: 'The First 25'
-	words: [
-		['I', 'he', 'am', 'a', 'go']
-		['no', 'my', 'on', 'look', 'in']
-		['to', 'we', 'said', 'do', 'is']
-		['and', 'at', 'the', 'it', 'can']
-		['see', 'me', 'like', 'come', 'here']
-		]
-	wordsList: []
-
-first25.wordsList.push(first25.words[0])
-
-
+whiteScrim.states =
+	hide: opacity: 0
+	show: opacity: 0.95
+whiteScrim.animationOptions =
+	time: 0.3
+	curve: 'linear'
+whiteScrim.stateSwitch 'hide'
+whiteScrim.sendToBack()
 
 
-# print first25.words[0]
 
 
 
 # Create Layers from words array
 
-currentSet = null
+currentSet = list[0]
 wordsLayer = []
 
-createWordLayers = ->
-	if currentSetIndex >= first25.words.length # Check if we're at the last set
+createWordLayers = (list) ->
+
+	if currentSetIndex >= currentList.length # Check if we're at the last set
 		currentSetIndex = 0 # Reset the index
 	
-	currentSet = first25.words[currentSetIndex]
+	currentSet = list[currentSetIndex]
 	
 	# Create word layers
 	for word, i in currentSet
@@ -105,6 +107,7 @@ createWordLayers = ->
 			name: word
 			x: Align.center
 			y: Align.center
+			parent: cardContainer
 		
 		wordsLayer.push(i)
 	
@@ -116,7 +119,8 @@ createWordLayers = ->
 	
 	shuffle(wordsLayer) # Shuffle the order of the words array 
 
-createWordLayers()
+createWordLayers(currentList)
+
 	
 
 # Show cards in random order
@@ -140,8 +144,8 @@ nextSet = ->
 	
 	currentWordIndex = 0 # Reset the word index
 	currentSetIndex += 1 # Increment the index number
-	
-	createWordLayers() # Create layers for new words
+
+	createWordLayers(currentList) # Create layers for new words
 
 nextWord()
 
@@ -151,6 +155,92 @@ button.onTap ->
 nextSetButton.onTap ->
 	nextSet()
 	nextWord()
+# 	print currentSetIndex
+
+
+
+# List Selector 	
+
+selectorItemHeight = 50
+selectorItemLayer = []
+
+listSelectorContainer = new Layer
+	width: 250, height: selectorItemHeight * listTitles.length
+	x: Align.center, y: Align.center
+	backgroundColor: 'rgba(107, 172, 194, 0.8)'
+	borderRadius: 4
+
+for title, i in listTitles
+	index = i
 	
+	i = new Layer
+		parent: listSelectorContainer
+		width: listSelectorContainer.width, height: selectorItemHeight
+		y: selectorItemHeight * i
+		backgroundColor: ''
+		name: 'listSelectorItem' + i
+	i.style =
+		'borderBottom': '1px solid white'
+	
+	selectorItemLayer.push(i)
+
+	listSelectorLabel = new TextLayer
+		parent: i
+		x: Align.center, y: Align.center
+		text: listTitles[index]
+		name: listTitles[index]
+		autoSize: true
+		textAlign: 'center'
+		color: 'black'
+
+# States
+
+listSelectorContainer.states =
+	hide: maxY: 0
+	show: y: listSelectorContainer.y
+listSelectorContainer.animationOptions = curve: 'spring'
+listSelectorContainer.stateSwitch 'hide'
+
+# Events
+
+showListSelector = ->
+	whiteScrim.placeBefore(cardContainer)
+	whiteScrim.animate 'show'
+	listSelectorContainer.animate 'show'
+
+hideListSelector = ->
+	whiteScrim.animate 'hide'
+	listSelectorContainer.animate 'hide'
+	
+	Utils.delay 0.5, -> whiteScrim.sendToBack()
+
+chooseListButton.onTap ->
+	showListSelector()
+
+whiteScrim.onTap ->
+	hideListSelector()
+
+for layer, i in selectorItemLayer
+	layer.selectorIndex = i
+
+	layer.onTap ->
+		layer.destroy() for layer in wordsLayer # Destroy current word layers
+		wordsLayer = [] # Clear the aray
+		
+		currentList = list[@.selectorIndex] # Choose the new list
+		currentSetIndex = 0 # Go to the first set in the list
+		currentSet = null
+		currentSet = currentList[currentSetIndex]
+		
+		createWordLayers(currentList) # Create layers from the new list
+		nextWord() # Go to the first word in the set
+		
+		hideListSelector()
+	
+	
+		
 
 
+
+
+		
