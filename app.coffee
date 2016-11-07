@@ -20,6 +20,154 @@ comicSans = new FontFace
 　file: "Comic Sans MS.ttf"
 
 
+# Data
+
+currentSetIndex = 0
+currentWordIndex = 0
+currentWord = 0
+wordsPerSet = 5
+
+first25 = 
+	title: 'The First 25'
+	words: [
+		['I', 'he', 'am', 'a', 'go']
+		['no', 'my', 'on', 'look', 'in']
+		['to', 'we', 'said', 'do', 'is']
+		['and', 'at', 'the', 'it', 'can']
+		['see', 'me', 'like', 'come', 'here']
+		]
+
+baseballWords =
+	title: 'Baseball Words'
+	words: [
+		['the', 'was', 'to', 'said', 'and']
+		['his', 'he', 'that', 'a', 'she']
+		['I', 'for', 'you', 'on', 'it']
+		['they', 'of', 'but', 'in', 'had']
+		]
+
+soccerWords = 
+	title: 'Soccer Words'
+	words: [
+		['at', 'out', 'is', 'am', 'her']
+		['then', 'have', 'up', 'some', 'go']
+		['look', 'we', 'as', 'with', 'be']
+		['little', 'there', 'all', 'down', 'him']
+		]
+
+basketballWords =
+	title: 'Basketball Words'
+	words: [
+		['do', 'get', 'can', 'them', 'would']
+		['like', 'did', 'this', 'when', 'one']
+		['what', 'my', 'so', 'could', 'see']
+		['me', 'were', 'yes', 'not', 'will']
+		]
+
+footballWords = 
+	title: 'Football Words'
+	words: [
+		['big', 'very', 'went', 'an', 'are']
+		['over', 'come', 'your', 'if', 'its']
+		['now', 'ride', 'long', 'into', 'no']
+		['just', 'came', 'blue', 'ask', 'red']
+		]
+
+volleyballWords =
+	title: 'Volleyball Words'
+	words: [
+		['from', 'put', 'good', 'too', 'any']
+		['got', 'about', 'take', 'around', 'four']
+		['want', 'every', '''don't''', 'pretty', 'how']
+		['jump', 'know', 'green', 'right', 'where']
+		]
+
+golfWords = 
+	title: 'Golf Words'
+	words: [
+		['away', 'ran', 'old', 'let', 'by']
+		['help', 'their', 'make', 'here', 'going']
+		['saw', 'sleep', 'call', 'brown', 'after']
+		['yellow', 'well', 'five', 'think', 'six']
+		]
+
+tennisWords = 
+	title: 'Tennis Words'
+	words: [
+		['walk', 'stop', 'two', 'off', 'round']
+		['before', 'who', 'never', 'fly', 'been']
+		['again', 'cold', 'play', 'today', 'myself']
+		['eight', 'or', 'may', 'eat', 'seven']
+		]
+
+bowlingWords = 
+	title: 'Bowling Words'
+	words: [
+		['tell', 'black', 'much', 'white', 'keep']
+		['ten', 'give', 'does', 'work', 'bring']
+		['first', 'goes', 'try', 'write', 'new']
+		['always', 'must', 'drink', 'start', 'once']
+		]
+
+pingPongWords = 
+	title: 'Ping Pong Words'
+	words: [
+		['soon', 'our', 'made', 'better', 'run']
+		['hold', 'gave', 'buy', 'open', 'funny']
+		['has', 'warm', 'find', 'ate', 'only']
+		['full', 'us', 'those', 'three', 'done']
+		]
+
+hockeyWords =
+	title: 'Hockey Words'
+	words: [
+		['use', 'sit', 'fast', 'which', 'say']
+		['fall', 'light', 'caryy', 'pick', 'small']
+		['hurt', 'under', 'pull', 'read', 'cut']
+		['why', 'kind', 'own', 'both', 'found']
+		]
+
+beachBallWords =
+	title: 'Beach Ball Words'
+	words: [
+		['wash', 'upon', 'show', 'these', 'hot']
+		['sing', 'because', 'together', 'best', 'please']
+		['live', 'thank', 'draw', 'wish', 'clean']
+		['many', 'grow', 'far', 'shall', 'laugh']
+		]
+
+listTitles = [
+	first25.title
+	baseballWords.title
+	soccerWords.title
+	basketballWords.title
+	footballWords.title
+	volleyballWords.title
+	golfWords.title
+	tennisWords.title
+	bowlingWords.title
+	pingPongWords.title
+	hockeyWords.title
+	]
+
+list = [
+	first25.words
+	baseballWords.words
+	soccerWords.words
+	basketballWords.words
+	footballWords.words
+	volleyballWords.words
+	golfWords.words
+	tennisWords.words
+	bowlingWords.words
+	pingPongWords.words
+	hockeyWords.words
+	]
+
+currentList = list[currentSetIndex]
+
+
+
 # Shuffle Function
 
 shuffle = (source) ->
