@@ -148,6 +148,7 @@ listTitles = [
 	bowlingWords.title
 	pingPongWords.title
 	hockeyWords.title
+	beachBallWords.title
 	]
 
 list = [
@@ -162,6 +163,7 @@ list = [
 	bowlingWords.words
 	pingPongWords.words
 	hockeyWords.words
+	beachBallWords.words
 	]
 
 currentList = list[currentSetIndex]
@@ -250,13 +252,25 @@ createWordLayers = (list) ->
 			text: word
 			color: 'black'
 			fontFamily: 'Comic Sans'
-			fontSize: Screen.width / 3
+			fontSize: Screen.width / 4
 			autoSize: true
 			name: word
 			x: Align.center
 			y: Align.center
 			parent: cardContainer
 		
+		if i.width >= Screen.width / 1.8 # Reduce font size for long words
+			i.fontSize = Screen.width / 5
+			i.autoSize = true
+			i.x = Align.center
+			i.y = Align.center
+		
+		if i.fontSize >= 100 # Set max fontSize
+			i.fontSize = 100
+			i.autoSize = true
+			i.x = Align.center
+			i.y = Align.center
+
 		wordsLayer.push(i)
 	
 	# Create states
