@@ -193,21 +193,33 @@ button = new Layer
 	y: 100
 	backgroundColor: '#'
 
-nextSetButton = new TextLayer
-	x: Align.center, maxY: Screen.height
-	width: Screen.width, height: 100
-	text: 'Next Set'
-	backgroundColor: '#efefef'
-	color: 'black'
-nextSetButton.style =
-	'padding': '10px'
+nextSetButton = new Layer
+	x: Align.center, maxY: Screen.height - 50
+	width: 250, height: 50
+	borderRadius: 25
+	backgroundColor: '#6BACC2'
 
-chooseListButton = new TextLayer
-	x: Align.center, y: 0
-	width: Screen.width, height: 100
+nextSetLabel = new TextLayer
+	x: Align.center, y: Align.center
+	autoSize: true
+	fontSize: 16
+	parent: nextSetButton
+	text: 'Next Set of 5'
+	color: 'white'
+
+chooseListButton = new Layer
+	x: Align.center, y: 50
+	width: 250, height: 50
+	borderRadius: 25
+	backgroundColor: '#6BACC2'
+
+chooseListLabel = new TextLayer
+	x: Align.center, y: Align.center
+	autoSize: true
+	fontSize: 16
 	text: 'Choose Word List'
-	backgroundColor: '#efefef'
-	color: 'black'
+	color: 'white'
+	parent: chooseListButton
 
 cardContainer = new Layer
 	width: Screen.width, height: Screen.height - 200
@@ -353,7 +365,6 @@ for title, i in listTitles
 		name: listTitles[index]
 		autoSize: true
 		textAlign: 'center'
-		color: 'black'
 
 # States
 
