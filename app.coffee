@@ -59,6 +59,7 @@ list = [
 currentList = list[currentSetIndex]
 
 
+
 # Shuffle Function
 
 shuffle = (source) ->
@@ -125,14 +126,15 @@ whiteScrim.sendToBack()
 
 # Create Layers from words array
 
-currentSet = null
+currentSet = list[0]
 wordsLayer = []
 
 createWordLayers = (list) ->
-	currentSet = list[currentSetIndex]
-	
-	if currentSetIndex >= currentSet.length # Check if we're at the last set
+
+	if currentSetIndex >= currentList.length # Check if we're at the last set
 		currentSetIndex = 0 # Reset the index
+	
+	currentSet = list[currentSetIndex]
 	
 	# Create word layers
 	for word, i in currentSet
@@ -182,10 +184,7 @@ nextSet = ->
 	
 	currentWordIndex = 0 # Reset the word index
 	currentSetIndex += 1 # Increment the index number
-	
-	if currentSetIndex >= currentSet.length # Check if we're at the last set
-		currentSetIndex = 0 # Reset the index
-	
+
 	createWordLayers(currentList) # Create layers for new words
 
 nextWord()
@@ -196,7 +195,8 @@ button.onTap ->
 nextSetButton.onTap ->
 	nextSet()
 	nextWord()
-	
+# 	print currentSetIndex
+
 
 
 # List Selector 	
@@ -265,16 +265,17 @@ for layer, i in selectorItemLayer
 
 	layer.onTap ->
 		layer.destroy() for layer in wordsLayer # Destroy current word layers
-	
+		wordsLayer = [] # Clear the aray
+		
 		currentList = list[@.selectorIndex] # Choose the new list
 		currentSetIndex = 0 # Go to the first set in the list
-		wordsLayer = [] # Clear the aray
-			
+		currentSet = null
+		currentSet = currentList[currentSetIndex]
+		
 		createWordLayers(currentList) # Create layers from the new list
 		nextWord() # Go to the first word in the set
 		
 		hideListSelector()
-		
 	
 	
 		
