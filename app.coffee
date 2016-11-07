@@ -27,7 +27,7 @@ currentWordIndex = 0
 currentWord = 0
 wordsPerSet = 5
 
-first25 =
+first25 = 
 	title: 'The First 25'
 	words: [
 		['I', 'he', 'am', 'a', 'go']
@@ -46,7 +46,7 @@ baseballWords =
 		['they', 'of', 'but', 'in', 'had']
 		]
 
-soccerWords =
+soccerWords = 
 	title: 'Soccer Words'
 	words: [
 		['at', 'out', 'is', 'am', 'her']
@@ -64,7 +64,7 @@ basketballWords =
 		['me', 'were', 'yes', 'not', 'will']
 		]
 
-footballWords =
+footballWords = 
 	title: 'Football Words'
 	words: [
 		['big', 'very', 'went', 'an', 'are']
@@ -82,7 +82,7 @@ volleyballWords =
 		['jump', 'know', 'green', 'right', 'where']
 		]
 
-golfWords =
+golfWords = 
 	title: 'Golf Words'
 	words: [
 		['away', 'ran', 'old', 'let', 'by']
@@ -91,7 +91,7 @@ golfWords =
 		['yellow', 'well', 'five', 'think', 'six']
 		]
 
-tennisWords =
+tennisWords = 
 	title: 'Tennis Words'
 	words: [
 		['walk', 'stop', 'two', 'off', 'round']
@@ -100,7 +100,7 @@ tennisWords =
 		['eight', 'or', 'may', 'eat', 'seven']
 		]
 
-bowlingWords =
+bowlingWords = 
 	title: 'Bowling Words'
 	words: [
 		['tell', 'black', 'much', 'white', 'keep']
@@ -109,7 +109,7 @@ bowlingWords =
 		['always', 'must', 'drink', 'start', 'once']
 		]
 
-pingPongWords =
+pingPongWords = 
 	title: 'Ping Pong Words'
 	words: [
 		['soon', 'our', 'made', 'better', 'run']
@@ -255,9 +255,9 @@ createWordLayers = (list) ->
 
 	if currentSetIndex >= currentList.length # Check if we're at the last set
 		currentSetIndex = 0 # Reset the index
-
+	
 	currentSet = list[currentSetIndex]
-
+	
 	# Create word layers
 	for word, i in currentSet
 		i = new TextLayer
@@ -270,13 +270,13 @@ createWordLayers = (list) ->
 			x: Align.center
 			y: Align.center
 			parent: cardContainer
-
+		
 		if i.width >= Screen.width / 1.8 # Reduce font size for long words
 			i.fontSize = Screen.width / 5
 			i.autoSize = true
 			i.x = Align.center
 			i.y = Align.center
-
+		
 		if i.fontSize >= 100 # Set max fontSize
 			i.fontSize = 100
 			i.autoSize = true
@@ -284,30 +284,30 @@ createWordLayers = (list) ->
 			i.y = Align.center
 
 		wordsLayer.push(i)
-
+	
 	# Create states
 	for layer, i in wordsLayer
 		layer.states =
 			hide: opacity: 0
 			show: opacity: 1
-
-	shuffle(wordsLayer) # Shuffle the order of the words array
+	
+	shuffle(wordsLayer) # Shuffle the order of the words array 
 
 createWordLayers(currentList)
 
-
+	
 
 # Show cards in random order
 
 nextWord = ->
 	# Hide all layers
 	layer.stateSwitch 'hide' for layer in wordsLayer
-
+	
 	# Show word matching current index number
 	wordsLayer[currentWordIndex].stateSwitch 'show'
-
+	
 	currentWordIndex += 1 # Increment the index number
-
+	
 	if currentWordIndex >= wordsLayer.length # Check if we're at the last word
 		currentWordIndex = 0 # Reset the word index
 		shuffle(wordsLayer)
@@ -315,7 +315,7 @@ nextWord = ->
 nextSet = ->
 	layer.destroy() for layer in wordsLayer # Destroy current word layers
 	wordsLayer = [] # Clear the words layer array
-
+	
 	currentWordIndex = 0 # Reset the word index
 	currentSetIndex += 1 # Increment the index number
 
@@ -325,7 +325,7 @@ nextWord()
 
 button.onTap ->
 	nextWord()
-
+		
 nextSetButton.onTap ->
 	nextSet()
 	nextWord()
@@ -333,7 +333,7 @@ nextSetButton.onTap ->
 
 
 
-# List Selector
+# List Selector 	
 
 selectorItemHeight = 50
 selectorItemLayer = []
@@ -346,7 +346,7 @@ listSelectorContainer = new Layer
 
 for title, i in listTitles
 	index = i
-
+	
 	i = new Layer
 		parent: listSelectorContainer
 		width: listSelectorContainer.width, height: selectorItemHeight
@@ -355,7 +355,7 @@ for title, i in listTitles
 		name: 'listSelectorItem' + i
 	i.style =
 		'borderBottom': '1px solid white'
-
+	
 	selectorItemLayer.push(i)
 
 	listSelectorLabel = new TextLayer
@@ -364,7 +364,9 @@ for title, i in listTitles
 		text: listTitles[index]
 		name: listTitles[index]
 		autoSize: true
+		fontSize: 16
 		textAlign: 'center'
+		color: 'white'
 
 # States
 
@@ -384,9 +386,7 @@ showListSelector = ->
 hideListSelector = ->
 	whiteScrim.animate 'hide'
 	listSelectorContainer.animate 'hide'
-
-	Utils.delay 0.5, -> whiteScrim.sendToBack()
-
+	
 	Utils.delay 0.5, -> whiteScrim.sendToBack()
 
 chooseListButton.onTap ->
@@ -401,41 +401,21 @@ for layer, i in selectorItemLayer
 	layer.onTap ->
 		layer.destroy() for layer in wordsLayer # Destroy current word layers
 		wordsLayer = [] # Clear the aray
-
+		
 		currentList = list[@.selectorIndex] # Choose the new list
 		currentSetIndex = 0 # Go to the first set in the list
 		currentSet = null
 		currentSet = currentList[currentSetIndex]
-
+		
 		createWordLayers(currentList) # Create layers from the new list
 		nextWord() # Go to the first word in the set
-
+		
 		hideListSelector()
+	
+	
+		
 
 
 
 
-
-
-chooseListButton.onTap ->
-	showListSelector()
-
-whiteScrim.onTap ->
-	hideListSelector()
-
-for layer, i in selectorItemLayer
-	layer.selectorIndex = i
-
-	layer.onTap ->
-		layer.destroy() for layer in wordsLayer # Destroy current word layers
-		wordsLayer = [] # Clear the aray
-
-		currentList = list[@.selectorIndex] # Choose the new list
-		currentSetIndex = 0 # Go to the first set in the list
-		currentSet = null
-		currentSet = currentList[currentSetIndex]
-
-		createWordLayers(currentList) # Create layers from the new list
-		nextWord() # Go to the first word in the set
-
-		hideListSelector()
+		
