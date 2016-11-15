@@ -280,13 +280,13 @@ createWordLayers = (list) ->
 			parent: cardContainer
 		
 		if i.width >= Screen.width / 1.8 # Reduce font size for long words
-			i.fontSize = Screen.width / 5
+			i.fontSize = Screen.width / dpr(5)
 			i.autoSize = true
 			i.x = Align.center
 			i.y = Align.center
 		
-		if i.fontSize >= 100 # Set max fontSize
-			i.fontSize = 100
+		if i.fontSize >= dpr(100) # Set max fontSize
+			i.fontSize = dpr(100)
 			i.autoSize = true
 			i.x = Align.center
 			i.y = Align.center
