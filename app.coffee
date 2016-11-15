@@ -3,10 +3,10 @@
 # http://framerjs.com/docs/#info.info
 
 Framer.Info =
-	title: ""
+	title: "Sight Words"
 	author: "Dave Crow"
 	twitter: ""
-	description: ""
+	description: "A sight words flash card app"
 
 
 
