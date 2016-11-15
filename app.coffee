@@ -3,10 +3,10 @@
 # http://framerjs.com/docs/#info.info
 
 Framer.Info =
-	title: ""
+	title: "Sight Words"
 	author: "Dave Crow"
 	twitter: ""
-	description: ""
+	description: "A sight words flash card app"
 
 
 
@@ -247,9 +247,45 @@ whiteScrim.states =
 whiteScrim.animationOptions =
 	time: 0.3
 	curve: 'linear'
-whiteScrim.stateSwitch 'hide'
-whiteScrim.sendToBack()
+whiteScrim.stateSwitch 'hide' unless Utils.isSafari() is true
+whiteScrim.stateSwitch 'hide' if Utils.isDesktop() is true
+whiteScrim.sendToBack() unless Utils.isSafari() is true
+whiteScrim.sendToBack() if Utils.isDesktop() is true
 
+addToContainer = new Layer
+	width: dpr(250), height: dpr(100)
+	x: Align.center, maxY: Screen.height
+	backgroundColor: ''
+
+addToBox = new Layer
+	width: addToContainer.width
+	height: addToContainer.height - dpr(10)
+	parent: addToContainer
+	backgroundColor: '#ccc'
+	borderRadius: dpr(4)
+
+addToPointer = new Layer
+	parent: addToContainer
+	width: dpr(10), height: dpr(10)
+	x: Align.center, midY: addToBox.maxY
+	rotation: 45
+	borderRadius: dpr(2)
+	backgroundColor: "#ccc"
+
+addToText = new TextLayer
+	parent: addToBox
+	autoSize: true
+	x: Align.center, y: Align.center
+	fontSize: dpr(18)
+	color: '#333'
+	text: 'Tap "Add to Home Screen"'
+
+addToContainer.states =
+	hide: opacity: 0
+	show: opacity: 1
+addToContainer.stateSwitch 'show'
+addToContainer.stateSwitch 'hide' unless Utils.isSafari() is true
+addToContainer.stateSwitch 'hide' if Utils.isDesktop() is true
 
 
 
@@ -280,13 +316,13 @@ createWordLayers = (list) ->
 			parent: cardContainer
 		
 		if i.width >= Screen.width / 1.8 # Reduce font size for long words
-			i.fontSize = Screen.width / 5
+			i.fontSize = Screen.width / dpr(5)
 			i.autoSize = true
 			i.x = Align.center
 			i.y = Align.center
 		
-		if i.fontSize >= 100 # Set max fontSize
-			i.fontSize = 100
+		if i.fontSize >= dpr(100) # Set max fontSize
+			i.fontSize = dpr(100)
 			i.autoSize = true
 			i.x = Align.center
 			i.y = Align.center
@@ -402,6 +438,8 @@ chooseListButton.onTap ->
 
 whiteScrim.onTap ->
 	hideListSelector()
+	
+	addToContainer.animate 'hide' if addToContainer.states.current isnt 'hide'
 
 for layer, i in selectorItemLayer
 	layer.selectorIndex = i
@@ -422,7 +460,6 @@ for layer, i in selectorItemLayer
 		nextWord() # Go to the first word in the set
 		
 		hideListSelector()
-	
 	
 		
 
