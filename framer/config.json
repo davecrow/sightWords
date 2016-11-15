@@ -5,20 +5,19 @@
   "deviceOrientation" : 0,
   "sharedPrototype" : 0,
   "contentScale" : 1,
-  "deviceType" : "google-nexus-6p",
+  "deviceType" : "fullscreen",
   "selectedHand" : "",
   "updateDelay" : 0.3,
-  "deviceScale" : "fit",
+  "deviceScale" : 1,
   "foldedCodeRanges" : [
     "{0, 184}",
     "{186, 183}",
     "{371, 3320}",
     "{3693, 558}",
-    "{4253, 1408}",
-    "{5663, 1047}",
-    "{6713, 815}",
-    "{7530, 1975}"
+    "{4253, 2437}",
+    "{6692, 1047}",
+    "{7742, 815}",
+    "{8559, 2051}"
   ],
-  "orientation" : 0,
-  "fullScreen" : false
+  "orientation" : 0
 }
