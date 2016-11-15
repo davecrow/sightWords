@@ -14,6 +14,7 @@ Framer.Info =
 
 {FontFace} = require 'FontFace'
 {TextLayer} = require 'TextLayer'
+{dpr} = require 'DevicePixelRatio'
 
 comicSans = new FontFace
 　name: "Comic Sans"
@@ -189,48 +190,48 @@ shuffle = (source) ->
 Screen.backgroundColor = 'white'
 
 button = new Layer
-	width: Screen.width, height: Screen.height - 100
-	y: 100
-	backgroundColor: '#'
+	width: Screen.width, height: Screen.height - dpr(100)
+	y: dpr 100
+	backgroundColor: ''
 
 nextSetButton = new Layer
-	x: Align.center, maxY: Screen.height - 50
-	width: 250, height: 50
-	borderRadius: 25
+	x: Align.center, maxY: Screen.height - dpr(50)
+	width: dpr(250), height: dpr(50)
+	borderRadius: dpr(25)
 	backgroundColor: '#6BACC2'
 
 nextSetLabel = new TextLayer
 	x: Align.center, y: Align.center
 	autoSize: true
-	fontSize: 16
+	fontSize: dpr(16)
 	parent: nextSetButton
 	text: 'Next Set of 5'
 	color: 'white'
 
 chooseListButton = new Layer
-	x: Align.center, y: 50
-	width: 250, height: 50
-	borderRadius: 25
+	x: Align.center, y: dpr(50)
+	width: dpr(250), height: dpr(50)
+	borderRadius: dpr(25)
 	backgroundColor: '#6BACC2'
 
 chooseListLabel = new TextLayer
 	x: Align.center, y: Align.center
 	autoSize: true
-	fontSize: 16
+	fontSize: dpr(16)
 	text: 'Change Word List'
 	color: 'white'
 	parent: chooseListButton
 
 currentListLabel = new TextLayer
-	x: Align.center, y: chooseListButton.maxY + 20
+	x: Align.center, y: chooseListButton.maxY + dpr(20)
 	autoSize: true
-	fontSize: 16
+	fontSize: dpr(16)
 	text: 'Current List: The First 25'
 	color: '#6BACC2'
 
 cardContainer = new Layer
-	width: Screen.width, height: Screen.height - 200
-	y: 100
+	width: Screen.width, height: Screen.height - dpr(200)
+	y: dpr(100)
 	backgroundColor: ''
 
 whiteScrim = new Layer
@@ -342,14 +343,14 @@ nextSetButton.onTap ->
 
 # List Selector 	
 
-selectorItemHeight = 50
+selectorItemHeight = dpr(50)
 selectorItemLayer = []
 
 listSelectorContainer = new Layer
-	width: 250, height: selectorItemHeight * listTitles.length
+	width: dpr(250), height: selectorItemHeight * listTitles.length
 	x: Align.center, y: Align.center
 	backgroundColor: 'rgba(107, 172, 194, 0.8)'
-	borderRadius: 4
+	borderRadius: dpr(4)
 
 for title, i in listTitles
 	index = i
@@ -371,7 +372,7 @@ for title, i in listTitles
 		text: listTitles[index]
 		name: listTitles[index]
 		autoSize: true
-		fontSize: 16
+		fontSize: dpr(16)
 		textAlign: 'center'
 		color: 'white'
 
